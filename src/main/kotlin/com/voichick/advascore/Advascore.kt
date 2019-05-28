@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scoreboard.DisplaySlot.PLAYER_LIST
 import org.bukkit.scoreboard.Objective
 import org.bukkit.scoreboard.RenderType
+import org.bukkit.scoreboard.Scoreboard
 
 @Suppress("unused")
 class Advascore : JavaPlugin() {
@@ -15,19 +16,28 @@ class Advascore : JavaPlugin() {
         val boardManager = server.scoreboardManager
                 ?: return logger.severe("Scoreboard manager not found")
         val board = boardManager.mainScoreboard
-        val listObjective = board.getObjective(PLAYER_LIST)
-        if (listObjective != null)
-            return logger.severe {
-                "There is already an objective in the \"list\" display slot: ${listObjective.name}"
-            }
-        val newObjective = board.registerNewObjective("advascore", "dummy", "Advancements", RenderType.INTEGER)
-        newObjective.displaySlot = PLAYER_LIST
+        val newObjective = createObjective(board) ?: return
         val listener = AdvListener(newObjective)
         server.pluginManager.registerEvents(listener, this)
         server.onlinePlayers.forEach { listener.updatePlayer(it) }
         objective = newObjective
 
         Metrics(this)
+    }
+
+    private fun createObjective(board: Scoreboard): Objective? {
+        val listObj = board.getObjective(PLAYER_LIST)
+        if (listObj == null) {
+            val result = board.registerNewObjective("advascore", "dummy", "Advancements", RenderType.INTEGER)
+            result.displaySlot = PLAYER_LIST
+            return result
+        }
+        if (listObj.name == "advascore")
+            return listObj
+        logger.severe {
+            "There is already an objective in the \"list\" display slot: ${listObj.name}"
+        }
+        return null
     }
 
     override fun onDisable() {
