@@ -1,5 +1,6 @@
 package com.voichick.advascore
 
+import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scoreboard.DisplaySlot.PLAYER_LIST
 import org.bukkit.scoreboard.Objective
@@ -25,6 +26,8 @@ class Advascore : JavaPlugin() {
         server.pluginManager.registerEvents(listener, this)
         server.onlinePlayers.forEach { listener.updatePlayer(it) }
         objective = newObjective
+
+        Metrics(this)
     }
 
     override fun onDisable() {
