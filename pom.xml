@@ -61,7 +61,6 @@
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
         <version>${kotlin.version}</version>
-
         <executions>
           <execution>
             <id>compile</id>
@@ -69,7 +68,6 @@
               <goal>compile</goal>
             </goals>
           </execution>
-
           <execution>
             <id>test-compile</id>
             <goals>
@@ -81,6 +79,7 @@
       <plugin>
         <groupId>com.github.wvengen</groupId>
         <artifactId>proguard-maven-plugin</artifactId>
+        <version>2.1.1</version>
         <executions>
           <execution>
             <phase>package</phase>
