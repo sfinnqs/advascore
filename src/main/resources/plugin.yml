@@ -2,3 +2,4 @@ name: Advascore
 version: ${project.version}
 description: A plugin to keep track of each player's number of advancements.
 main: com.voichick.advascore.Advascore
+api-version: "1.14"
