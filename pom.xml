@@ -37,11 +37,11 @@
           <relocations>
             <relocation>
               <pattern>org.bstats.bukkit</pattern>
-              <shadedPattern>com.voichick.advascore.bstats</shadedPattern>
+              <shadedPattern>${project.groupId}.bstats</shadedPattern>
             </relocation>
             <relocation>
               <pattern>kotlin</pattern>
-              <shadedPattern>com.voichick.advascore.kotlin</shadedPattern>
+              <shadedPattern>${project.groupId}.kotlin</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -95,9 +95,8 @@
           <outputDirectory>${project.build.directory}</outputDirectory>
           <libs>
             <lib>${java.home}/lib/rt.jar</lib>
-            <lib>lib/spigot-1.14.4.jar</lib>
           </libs>
-          <outFilter>!**.kotlin_metadata</outFilter>
+          <outFilter>!**.kotlin_metadata,!**.kotlin_builtins</outFilter>
           <options>
             <option>-optimizationpasses 10</option>
             <option>-keep class ** extends org.bukkit.plugin.java.JavaPlugin</option>
@@ -105,7 +104,7 @@
               @org.bukkit.event.EventHandler *; }
             </option>
             <option>
-              -assumenosideeffects class kotlin.jvm.internal.Intrinsics {
+              -assumenosideeffects class ${project.groupId}.kotlin.jvm.internal.Intrinsics {
               static void checkParameterIsNotNull(java.lang.Object, java.lang.String);
               static void checkExpressionValueIsNotNull(java.lang.Object, java.lang.String);
               }
@@ -125,8 +124,8 @@
 
   <repositories>
     <repository>
-      <id>spigotmc-repo</id>
-      <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+      <id>spigot-repo</id>
+      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
     <repository>
       <id>CodeMC</id>
