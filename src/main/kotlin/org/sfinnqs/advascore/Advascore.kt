@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program; if not, see <https://www.gnu.org/licenses>.
  */
-package com.voichick.advascore
+package org.sfinnqs.advascore
 
 import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
